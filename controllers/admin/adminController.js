@@ -1,5 +1,6 @@
 const { Admin, User, Courier, UserPackage, Package } = require('../../models')
 const bcrypt = require('bcrypt');
+const transporter = require('../../nodemailer')
 
 class AdminController {
     static home(req, res){
@@ -32,7 +33,6 @@ class AdminController {
         User
             .findAll()
             .then(customers => {
-                console.log(customers)
                 res.render('./admin/customerlist', { message, isLogin, customers })
             })
             .catch(err => {
@@ -61,11 +61,11 @@ class AdminController {
                     name: logged.name,
                     email: logged.email
                 }
-                res.redirect('/admin/customer/list')
+                res.redirect('/admin/transaction/list')
             })
             .catch(err => {
                 req.flash('msg', ["Username or Password incorrect"])
-                res.send(err)
+                res.redirect('back')
             })
     }
 
@@ -151,9 +151,12 @@ class AdminController {
             duration: req.body.duration
         }
 
+        console.log(newPackage)
+
         Package
             .create(newPackage)
             .then((added) => {
+                // res.send(added)
                 req.flash('success', `Successfully added ${added.type} package type`)
                 res.redirect('/admin/package/list')
             })
@@ -188,7 +191,111 @@ class AdminController {
                 ]
             })
             .then(transactions => {
-                res.render('./admin/transactionlist', { message, isLogin, transactions })
+                let list = {
+                    name: [],
+                    type: [],
+                    weight: [],
+                    totalprice: [],
+                    date_order: [],
+                    date_estimation: [],
+                    date_pickup: [],
+                    date_finish: [],
+                    date_deliver: [],
+                    date_delivered: [],
+                    couriername: [],
+                    couriercontact: [],
+                    status: []
+                }
+
+                transactions.forEach(transaction => {
+                    transaction.UserPackages.forEach(el => {
+                        list.name.push(transaction.name)
+                        list.type.push(el.Package.type)
+                        list.weight.push(el.weight)
+                        list.totalprice.push(el.weight * el.Package.price)
+                        list.date_order.push(el.date_order)
+                        
+                        el.date_estimation = el.date_order.setDate(el.date_order.getDate() + parseFloat(el.Package.duration))
+                        
+                        list.date_estimation.push(el.date_estimation)
+                        list.date_pickup.push(el.date_pickup)
+                        list.date_finish.push(el.date_finish)
+                        list.date_deliver.push(el.date_deliver)
+                        list.date_delivered.push(el.date_delivered)
+                        list.status.push(el.status)
+                        list.couriername.push(el.Courier.name)
+                        list.couriercontact.push(el.Courier.phone_number)
+                    })
+                })
+                // console.log(list)
+                // res.send(transactions)
+
+                res.render('./admin/transactionlist', { message, isLogin, list, transactions })
+            })
+            .catch(err => {
+                res.send(err)
+            })
+    }
+
+    static statusTransaction(req, res){
+        UserPackage
+            .findOne({
+                include: [User],
+                where: {
+                    UserId: req.params.UserId,
+                    PackageId: req.params.PackageId
+                }
+            })
+            .then(found => {
+                let update = {
+                    status: ""
+                }
+                if(found.status == 'pending'){
+                    update.status = 'on progress'
+                    update.date_pickup = new Date
+                } else if(found.status == 'on progress'){
+                    update.status = 'closing process'
+                    update.date_finish = new Date
+                } else if(found.status == 'closing process'){
+                    update.status = 'on delivery'
+                    update.date_deliver = new Date
+                } else if(found.status == 'on delivery'){
+                    update.status = 'delivered'
+                    update.date_delivered = new Date
+
+
+                    const mailOptions = {
+                        from: 'dipndry2020@gmail.com',
+                        to: 'hafizulrifkihawari@gmail.com',
+                        subject: 'Laundry Completion Notification',
+                        // text: 'Hello World!',
+                        html: `<p> Your Laundry have been delivered at your provided location.
+                        Thank you for using our service! </p>`
+                    }
+                    
+                    transporter.sendMail(mailOptions, (err, info) => {
+                        if(err){
+                            console.log(err)
+                        } else {
+                            console.log('Mail sent:' + info.response)
+                        }
+                    })
+
+                } else {
+                    update.status = 'completed'
+                }
+
+                // res.send(found.User.email)
+
+                return UserPackage.update(update, {
+                    where: {
+                        UserId: req.params.UserId,
+                        PackageId: req.params.PackageId
+                    }
+                })
+            })
+            .then(data => {
+                res.redirect('back')
             })
             .catch(err => {
                 res.send(err)
@@ -199,6 +306,8 @@ class AdminController {
         let message = req.flash('msg') || ""
         let isLogin = req.session.login || ""
         let success = req.flash('success') || ""
+
+        console.log(success)
 
         Courier
             .findAll()
@@ -228,11 +337,10 @@ class AdminController {
         Courier
             .create(newCourier)
             .then(courier => {
-                req.flash('msg', `Successfully added courier ${courier.name}`)
+                req.flash('success', `Successfully added courier ${courier.name}`)
                 res.redirect('/admin/courier/list')
             })
             .catch(err => {
-                
                 let generateError = []
                 let obj = {}
                 err.errors.forEach(el => {
@@ -264,8 +372,6 @@ class AdminController {
     static editCourierForm(req, res){
         let message = req.flash('msg') || ""
         let isLogin = req.session.login || ""
-
-        console.log(message)
 
         Courier
             .findByPk(req.params.id)
@@ -305,6 +411,65 @@ class AdminController {
                 
                 req.flash('msg', generateError)
                 res.redirect('back')
+            })
+    }
+
+    static changeStatusTransaction(req, res){
+        UserPackage
+            .findOne({
+                include: [User],
+                where: {
+                    UserId: req.params.UserId,
+                    PackageId: req.params.PackageId
+                }
+            })
+            .then(result => {
+                console.log(result)
+                let updating = {}
+                if(result.status == 'pending'){
+                    updating.status = 'on progress'
+                    updating.date_pickup = new Date
+                } else if(result.status == 'on progress'){
+                    updating.status = 'closing process'
+                    updating.date_finish = new Date
+                } else if(result.status == 'closing process'){
+                    updating.date_deliver = new Date
+                    updating.status = 'on delivery'
+                } else if(result.status == 'on delivery'){
+                    updating.date_delivered = new Date
+                    updating.status = 'delivered'
+
+                    const mailOptions = {
+                        from: 'dipndry2020@gmail.com',
+                        to: `${result.User.email}`,
+                        subject: 'Laundry Notification',
+                        html: `<p> Your laundry have completed and delivered at your provided location! <p>`
+                    }
+
+                    transporter.sendMail(mailOptions, (err, info) => {
+                        if(err){
+                            console.log(err)
+                        } else {
+                            console.log('Mail sent:' + info.response)
+                        }
+                    })
+
+                } else if(result.status == 'delivered'){
+                    updating.status = 'close order'
+                }
+
+                return UserPackage.update(updating, {
+                    where: {
+                        UserId: req.params.UserId,
+                        PackageId: req.params.PackageId
+                    }
+                })
+            })
+            .then(result => {
+                res.redirect('back')
+            })
+            .catch(err => {
+                res.send(err)
             })
     }
 }

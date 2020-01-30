@@ -13,7 +13,6 @@
                 <th scope="col">Address</th>
                 <th scope="col">Phone Number</th>
                 <th scope="col">Email</th>
-                <th scope="col">Status</th>
             </tr>
             </thead>
             <tbody>
@@ -21,16 +20,27 @@
             <tr>
                 <th scope="row"><%= index + 1 %></th>
                 <td><%= customer.name %></td>
-                <td><a href="<%= helper.searchDirection(customer.address) %>" target="_blank"><%= customer.address %></a></td>
+                <td>
+                    <a href="<%= helper.searchDirection(customer.address) %>" target="_blank"><%= customer.address %></a></td>
                 <td><%= customer.phone_number %></td>
                 <td><%= customer.email %></td>
-                <td></td>
             </tr>
             <% }) %>
-            </tbody>
-        </table>
-    </div>
+        </tbody>
+    </table>
+</div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    function postYourAdd (str) {
+    var iframe = $("#forPostyouradd");
+    iframe.attr("src", str); 
+}
+</script>
+
+<div class="embed-responsive embed-responsive-21by9">
+    <iframe class="embed-responsive-item" id="forPostyouradd" data-src="https://getbootstrap.com/docs/4.0/components/list-group/" src="about:blank" width="500" height="200" style="background:#ffffff"></iframe>></iframe>
+</div>
 
 <%- include('./partials/scriptlogin') %>
 </html>

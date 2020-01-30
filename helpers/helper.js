@@ -12,7 +12,7 @@ function changeNumberFormat(number){
             res += number[i]
         }
     }
-    return `Rp. ${res.split("").reverse().join("")},00`
+    return `Rp. ${res.split("").reverse().join("")}.00`
 }
 
 function changeDurationFormat(number){
@@ -48,5 +48,12 @@ function searchDirection(loc){
     return res
 }
 
+function changeDate(date){
+    if (date == null){
+        return date
+    }
+    return date.toLocaleDateString('en-GB')
+}
 
-module.exports = { changeNumberFormat, changeDurationFormat, changePhoneNumberFormat, storeLocation, searchDirection}
+
+module.exports = { changeNumberFormat, changeDurationFormat, changePhoneNumberFormat, storeLocation, searchDirection, changeDate}

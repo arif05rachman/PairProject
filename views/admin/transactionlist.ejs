@@ -1,7 +1,7 @@
 <%- include('./partials/header') %>
 <body>
     <%- include('./partials/navbar', { page: "transaction" }) %>
-    <div class="container max-width">
+    <div>
         <div class="text-center mt-4">
             <h2>Transactions List</h2>
         </div>
@@ -10,6 +10,7 @@
             <tr>
                 <th scope="col">Customer Name</th>
                 <th scope="col">Package Name</th>
+                <th scope="col">Weight</th>
                 <th scope="col">Total Price</th>
                 <th scope="col">Date Order</th>
                 <th scope="col">Date Est. Complete</th>
@@ -24,23 +25,42 @@
             </tr>
             </thead>
             <tbody>
-                <% transactions.forEach((transaction, index) => { %>
-                    <td><%= transaction.name %></td>
-                    <td>package name</td>
-                    <td>total price </td>
-                    <td>date order </td>
-                    <td>date est. complete </td>
-                    <td>date pickup </td>
-                    <td>date finish </td>
-                    <td>date deliver </td>
-                    <td>date delivered </td>
-                    <td>courier name </td>
-                    <td>courier contact </td>
-                    <td>transaction.status </td>
-                <% }) %>
+            <% transactions.forEach((transaction, index) => { %>
+                <% for(let i = 0; i < list.name.length; i++){ %>
+                <tr>
+                    <td><%= list.name[i] %></td>
+                    <td><%= list.type[i] %></td>
+                    <td><%= list.weight[i] %></td>
+                    <td><%= helper.changeNumberFormat(list.totalprice[i]) %></td>
+                    <td><%= helper.changeDate(list.date_order[i]) %></td>
+                    <td><%= helper.changeDate(list.date_estimation[i]) %></td>
+                    <td><%= helper.changeDate(list.date_pickup[i]) %></td>
+                    <td><%= helper.changeDate(list.date_finish[i]) %></td>
+                    <td><%= helper.changeDate(list.date_deliver[i]) %></td>
+                    <td><%= helper.changeDate(list.date_delivered[i]) %></td>
+                    <td><%= list.couriername[i] %></td>
+                    <td><%= list.couriercontact[i] %></td>
+                    <td><%= list.status[i] %></td>
+                    <td>
+                        <a href="/admin/transaction/<%= transaction.UserPackages[i].UserId %>/<%= transaction.UserPackages[i].PackageId %>">
+                            <% if(list.status[i] == 'pending'){ %>
+                                <button type="submit" class="btn btn-warning"> Pick Up </button>
+                            <% } else if(list.status[i] == 'on progress'){ %>
+                                <button type="submit" class="btn btn-warning"> Bag </button>
+                            <% } else if(list.status[i] == 'closing process'){ %>
+                                <button type="submit" class="btn btn-warning"> Deliver </button>
+                            <% } else if(list.status[i] == 'on delivery'){ %>
+                                <button type="submit" class="btn btn-warning"> Confirm Delivery </button>
+                            <% } else if(list.status[i] == 'delivered'){ %>
+                                <button type="submit" class="btn btn-warning"> Close Order </button>
+                            <% }  %>
+                        </a>
+                    </td>
+                </tr>
+                <% } %>
+            <% }) %>
             </tbody>
         </table>
-    </div>
 </body>
 
 <%- include('./partials/scriptlogin') %>
