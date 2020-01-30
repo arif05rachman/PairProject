@@ -9,7 +9,10 @@ router.get('/logout', AdminControlller.logout)
 
 router.get('/customer/list', AdminControlller.customerList)
 router.get('/package/list', AdminControlller.packageList)
+
 router.get('/transaction/list', AdminControlller.transactionList)
+router.get('/transaction/:UserId/:PackageId', AdminControlller.statusTransaction)
+
 router.get('/courier/list', AdminControlller.courierList)
 
 router.get('/package/delete/:id', AdminControlller.deletePackage)
