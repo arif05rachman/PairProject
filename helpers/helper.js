@@ -34,5 +34,19 @@ function changePhoneNumberFormat(number){
     this.phone_number = this.phone_number.replace(/^0/, '+62')
 }
 
+function storeLocation(){
+    let loc = `Pondok Indah Mall`
+    return `https://www.google.com/maps/search/?api=1&query=` + encodeURIComponent(loc)
+}
 
-module.exports = { changeNumberFormat, changeDurationFormat, changePhoneNumberFormat }
+function searchDirection(loc){
+    let origin = encodeURIComponent('Hacktiv8')
+    let destination = encodeURIComponent(loc)
+    const googledir = `https://www.google.com/maps/dir/?api=1`
+
+    let res = googledir + `&origin=${origin}&destination=${destination}`
+    return res
+}
+
+
+module.exports = { changeNumberFormat, changeDurationFormat, changePhoneNumberFormat, storeLocation, searchDirection}

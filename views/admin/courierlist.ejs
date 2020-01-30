@@ -6,13 +6,17 @@
         <div class="text-center mt-4">
             <h2>Courier List</h2>
         </div>
-        <table class="table mt-4 table-hover table-striped text-center table-bordered">
+        <% if(success.length > 0){ %>
+            <div class="alert alert-success" role="alert">
+                <%= success %>
+            </div>
+        <% } %>
+        <table class="table mt-2 table-hover table-striped text-center table-bordered">
             <a href="/admin/courier/add"><button type="button" class="btn btn-primary mt-4 mb-2">Add</button></a>
             <thead class="thead-dark">
             <tr>
                 <th scope="col">No.</th>
                 <th scope="col">Name</th>
-                <th scope="col">Password</th>
                 <th scope="col">Email</th>
                 <th scope="col">Phone Number</th>
                 <th scope="col">Action</th>
@@ -23,7 +27,6 @@
             <tr>
                 <th scope="row"><%= index + 1 %></th>
                 <td><%= courier.name %></td>
-                <td><%= courier.password %></td>
                 <td><%= courier.email %></td>
                 <td><%= courier.phone_number %></td>
                 <td>

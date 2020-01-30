@@ -1,4 +1,5 @@
 const { Admin, User, Courier, UserPackage, Package } = require('../../models')
+const bcrypt = require('bcrypt');
 
 class AdminController {
     static home(req, res){
@@ -11,8 +12,6 @@ class AdminController {
         let message = req.flash('msg') || ""
         let success = req.flash('success') || ""
         let isLogin = req.session.login || ""
-
-        console.log(success)
 
         Package
             .findAll({
@@ -46,8 +45,15 @@ class AdminController {
             .findOne({
                 where: {
                     name: req.body.name,
-                    password: req.body.password
                 }
+            })
+            .then(logged => {
+                if(bcrypt.compareSync(req.body.password, logged.password)){
+                    return logged
+                } else {
+                    throw 'Username or Password Incorrect'
+                }
+                
             })
             .then(logged => {
                 req.session.login = {
@@ -181,8 +187,7 @@ class AdminController {
                 ]
             })
             .then(transactions => {
-                res.send(transactions)
-                // res.render('./admin/transactionlist', { message, isLogin, transactions })
+                res.render('./admin/transactionlist', { message, isLogin, transactions })
             })
             .catch(err => {
                 res.send(err)
@@ -192,11 +197,12 @@ class AdminController {
     static courierList(req, res){
         let message = req.flash('msg') || ""
         let isLogin = req.session.login || ""
+        let success = req.flash('success') || ""
 
         Courier
             .findAll()
             .then(couriers => {
-                res.render('./admin/courierlist', { message, isLogin, couriers })
+                res.render('./admin/courierlist', { message, isLogin, couriers, success })
             })
             .catch(err => {
                 res.send(err)

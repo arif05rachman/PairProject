@@ -20,10 +20,24 @@
                 <th scope="col">Courier Name</th>
                 <th scope="col">Courier Contact</th>
                 <th scope="col">Status</th>
+                <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
-                
+                <% transactions.forEach((transaction, index) => { %>
+                    <td><%= transaction.name %></td>
+                    <td>package name</td>
+                    <td>total price </td>
+                    <td>date order </td>
+                    <td>date est. complete </td>
+                    <td>date pickup </td>
+                    <td>date finish </td>
+                    <td>date deliver </td>
+                    <td>date delivered </td>
+                    <td>courier name </td>
+                    <td>courier contact </td>
+                    <td>transaction.status </td>
+                <% }) %>
             </tbody>
         </table>
     </div>
