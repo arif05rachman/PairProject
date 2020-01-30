@@ -3,20 +3,19 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item <%= (page == 'transaction') ? 'active' : '' %>">
-          <a class="nav-link" href="/admin/transaction/list">Transactions<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/admin/transaction/list"><%= isLogin ? "Transactions" : '' %><span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item <%= (page == 'customer') ? 'active' : '' %>">
-          <a class="nav-link" href="/admin/customer/list">Customers<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/admin/customer/list"><%= isLogin ? "Customers" : '' %><span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item <%= (page == 'package') ? 'active' : '' %>">
-          <a class="nav-link" href="/admin/package/list">Packages</a>
+          <a class="nav-link" href="/admin/package/list"><%= isLogin ? "Packages" : '' %> </a>
         </li>
         <li class="nav-item <%= (page == 'courier') ? 'active' : '' %>">
-          <a class="nav-link" href="/admin/courier/list">Couriers</a>
+          <a class="nav-link" href="/admin/courier/list"><%= isLogin ?  "Couriers" : '' %></a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">

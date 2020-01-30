@@ -6,13 +6,13 @@
         <div class="text-center mt-4">
             <h2>Packages List</h2>
         </div>
-        <% if(success.length > 0){ %>
-            <div class="alert alert-success" role="alert">
-                <%= success %>
-            </div>
-        <% } %>
-        <table class="table mt-2 table-hover table-striped text-center table-bordered">
+        <table class="table mt-2 table-hover table-striped text-center table-bordered">            
             <a href="/admin/package/add"><button type="button" class="btn btn-primary mt-4 mb-2">Add</button></a>
+            <% if(success.length > 0){ %>
+                <div class="alert alert-success class mt-0 mb-0" role="alert">
+                    <%= success %>
+                </div>
+            <% } %>
             <thead class="thead-dark">
             <tr>
                 <th scope="col">No.</th>
