@@ -18,47 +18,47 @@
 <!-- about -->
 <!-- services -->
 	<div class="services">
-		<div class="container">
+		<div class="container-fluid">
 			<table class="table">
 				<thead>
 				  <tr>
 					<th scope="col">NO</th>
-					<th>ID</th>
+					<!-- <th>ID</th>
 					<th>USERID</th>
-					<th>PACKAGEID</th>
-					<th>PRICE TOTAL</th> 
+					<th>PACKAGEID</th> -->
 					<th>DATE ORDER</th> 
+					<th>STATUS</th>
+					<th>WEIGHT</th>
+					<th>PRICE TOTAL</th> 
 					<th>DATE ESTIMATION</th> 
 					<th>DATE PICKUP</th> 
 					<th>DATE FINISH</th> 
 					<th>DATE DELIVER</th> 
 					<th>DATE DELIVERED</th> 
-					<th>STATUS</th>
-					<th>COURIERID</th>
-					<th>CREATEDAT</th>
-					<th>UPDATEDAT</th>
-					<th>WEIGHT</th>
+					<!-- <th>COURIERID</th> -->
+					<!-- <th>CREATEDAT</th>
+					<th>UPDATEDAT</th> -->
 				  </tr>
 				</thead>
 				<tbody>
 					<% data.forEach((data, index)=>{%>
 				  <tr>
 					<th scope="row"><%=index+1%></th>
-					<td><%=data.id%></td>
-					<td><%=data.UserId%></td>
-					<td><%=data.PackageId%></td>
+					<!-- <td><%=data.id%></td> -->
+					<!-- <td><%=data.UserId%></td>
+					<td><%=data.PackageId%></td> -->
+					<td><%= moment(data.date_order).format('DD-MM-YYYY')%></td>
+					<td><%=data.status%></td>
+					<td><%=data.weight%></td>
 					<td><%=data.price_total%></td>
-					<td><%=data.date_order%></td>
 					<td><%=data.date_estimation%></td>
 					<td><%=data.date_pickup%></td>
 					<td><%=data.date_finish%></td>
 					<td><%=data.date_deliver%></td>
 					<td><%=data.date_delivered%></td>
-					<td><%=data.status%></td>
-					<td><%=data.CourierId%></td>
-					<td><%=data.createdAt%></td>
-					<td><%=data.updatedAt%></td>
-					<td><%=data.weight%></td>
+					<!-- <td><%=data.CourierId%></td> -->
+					<!-- <td><%=data.createdAt%></td>
+					<td><%=data.updatedAt%></td> -->
 				  </tr>
 				<%})%>
 				</tbody>
