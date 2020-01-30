@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 
 const adminRouter = require('./routers/admin/adminRouter')
+const customerRouter = require('./routers/customer/customerRouter')
 
 app.locals.helper = require('./helpers/helper')
 
@@ -24,5 +25,6 @@ app.use(session({
 }))
 
 app.use('/admin', adminRouter)
+app.use('/', customerRouter)
 
 app.listen(port, () => console.log(`Listening to ${port}!`))

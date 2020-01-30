@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<%- include('partials/head') %>
+<body>
+<!-- header -->
+	<!-- <div id="demo-1" data-zs-src='["images/4.jpg", "images/2.jpg", "images/1.jpg","images/3.jpg"]' data-zs-overlay="dots"> -->
+		<div class="demo-inner-content">
+		<!--/header-w3l-->
+		<div class="header-w3-agileits" id="home">
+			<%- include('partials/nav')%>
+	<!--//header-w3l-->
+	<!--/banner-info-->
+	<!--/banner-info-->
+		</div>
+		   </div>
+    <!-- </div> -->
+  <!--/banner-section-->
+<!-- about -->
+<!-- services -->
+	<div class="services">
+		<div class="container">
+			<div class="w3_agile_services_grids">
+				<h4 class="tittles-w3agileits"><span>P</span>ackage</h4>
+				<% data.forEach(el => {%>
+
+				<div class="col-md-4 w3_agile_services_grid">
+					<div class="agile_services_grid">
+						<div class="hover06 column">
+							<div>
+								<figure><img src="images/a1.jpg" alt=" " class="img-responsive" /></figure>
+							</div>
+						</div>
+						<div class="agile_services_grid_pos">
+							<i class="fa fa-spinner" aria-hidden="true"></i>
+						</div>
+					</div>
+					<h4><%= el.type%></h4>
+					<!-- <p class="para-w3-agile">We will </p> -->
+						<p>We have package <%= el.type %> </p>
+						<p>Finished in <%= el.duration %> days</p>
+						<p>Price : Rp. <%= el.price %>/Kg</p>
+						<a href="#"><span class="label label-primary">Primary</span></a>
+				</div>
+				<%})%>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+<!-- //services -->
+	<!-- //about -->
+
+<!--footer -->
+	<%- include('partials/footer')%>
+<!--//footer-->	
+<!-- copy-right -->
+<%- include('partials/copyright')%>
+<!-- //copy-right -->
+<%- include('partials/modal') %>
+	<a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+<!-- //smooth scrolling -->
+<%- include('partials/script')%>
+</body>
+</html>
