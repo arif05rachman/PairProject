@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<%- include('./partials/header') %>
+<body>
+    <%- include('./partials/navbar', { page: "package" }) %>
+    <div class="container">
+        <div class="text-center mt-4">
+            <h2>Packages List</h2>
+        </div>
+        <table class="table mt-4 table-hover table-striped text-center table-bordered">
+            <a href="/admin/package/add"><button type="button" class="btn btn-primary mt-4 mb-2">Add</button></a>
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Type</th>
+                <th scope="col">Price</th>
+                <th scope="col">Duration</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% packages.forEach((package, index) => { %>
+            <tr>
+                <th scope="row"><%= index + 1 %></th>
+                <td><%= package.type %></td>
+                <td><%= helper.changeNumberFormat(package.price) %></td>
+                <td><%= helper.changeDurationFormat(package.duration) %></td>
+                <td>
+                    <a href="/admin/package/edit/<%= package.id %>"><button type="button" class="btn btn-primary">Edit</button></a>
+                    <a href="/admin/package/delete/<%= package.id %>"><button type="button" class="btn btn-warning">Delete</button></a>
+                </td>
+            </tr>
+            <% }) %>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<%- include('./partials/scriptlogin') %>
+</html>
