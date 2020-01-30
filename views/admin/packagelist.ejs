@@ -6,6 +6,11 @@
         <div class="text-center mt-4">
             <h2>Packages List</h2>
         </div>
+        <% if(success.length > 0){ %>
+            <div class="alert alert-success" role="alert">
+                <%= success %>
+            </div>
+        <% } %>
         <table class="table mt-4 table-hover table-striped text-center table-bordered">
             <a href="/admin/package/add"><button type="button" class="btn btn-primary mt-4 mb-2">Add</button></a>
             <thead class="thead-dark">

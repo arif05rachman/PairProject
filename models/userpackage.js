@@ -23,6 +23,8 @@ module.exports = (sequelize, DataTypes) => {
 
   UserPackage.associate = function(models) {
     // associations can be defined here
+    UserPackage.belongsTo(models.User)
+    UserPackage.belongsTo(models.Package)
     UserPackage.belongsTo(models.Courier)
   };
   return UserPackage;

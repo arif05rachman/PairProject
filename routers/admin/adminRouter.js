@@ -14,10 +14,14 @@ router.get('/courier/list', AdminControlller.courierList)
 
 router.get('/package/delete/:id', AdminControlller.deletePackage)
 router.get('/package/edit/:id', AdminControlller.editPackage)
+router.post('/package/edit/:id', AdminControlller.proceedEditPackage)
 router.get('/package/add', AdminControlller.addPackageForm)
 router.post('/package/add', AdminControlller.proceedAddPackage)
 
 router.get('/courier/add/', AdminControlller.addCourierForm)
 router.post('/courier/add/', AdminControlller.proceedAddCourier)
+router.get('/courier/delete/:id', AdminControlller.deleteCourier)
+router.get('/courier/edit/:id', AdminControlller.editCourierForm)
+router.post('/courier/edit/:id', AdminControlller.proceedEditCourier)
 
 module.exports = router

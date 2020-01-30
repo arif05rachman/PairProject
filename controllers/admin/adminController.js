@@ -9,14 +9,17 @@ class AdminController {
 
     static packageList(req, res){
         let message = req.flash('msg') || ""
+        let success = req.flash('success') || ""
         let isLogin = req.session.login || ""
+
+        console.log(success)
 
         Package
             .findAll({
                 order: [['duration', 'ASC']]
             })
             .then(packages => {
-                res.render('./admin/packagelist', { packages, message, isLogin})
+                res.render('./admin/packagelist', { packages, message, isLogin, success})
             })
             .catch(err => {
                 res.send(err)
@@ -99,10 +102,38 @@ class AdminController {
             })
     }
 
+    static proceedEditPackage(req, res){
+        let editPackage = {
+            type: req.body.type,
+            price: req.body.price,
+            duration: req.body.duration
+        }
+
+        Package
+            .update(editPackage, { 
+                where: {
+                    id: req.params.id
+                }
+            })
+            .then(updated => {
+                res.redirect('/admin/package/list')
+            })
+            .catch(err => {
+                let generateError = []
+                let obj = {}
+                err.errors.forEach(el => {
+                    obj[el.path] = el.message
+                })
+                generateError.push(obj)
+                
+                req.flash('msg', generateError)
+                res.redirect('back')
+            })
+    }
+
     static addPackageForm(req, res){
         let message = req.flash('msg') || ""
         let isLogin = req.session.login || ""
-
         res.render('./admin/addpackage', { message, isLogin })
     }
 
@@ -120,11 +151,14 @@ class AdminController {
                 res.redirect('/admin/package/list')
             })
             .catch(err => {
-                let msg = []
+                let generateError = []
+                let obj = {}
                 err.errors.forEach(el => {
-                    msg.push(el.message)
+                    obj[el.path] = el.message
                 })
-                req.flash('msg', msg)
+                generateError.push(obj)
+                
+                req.flash('msg', generateError)
                 res.redirect('back')
             })
     }
@@ -133,23 +167,31 @@ class AdminController {
         let message = req.flash('msg') || ""
         let isLogin = req.session.login || ""
 
-        UserPackage
-            .findAll()
-            .then(data => {
-                res.send(data)
+        User
+            .findAll({
+                include: [
+                    {
+                        model: UserPackage,
+                        include: [{
+                            model: Courier,
+                        }, {
+                            model: Package
+                        }]
+                    }
+                ]
+            })
+            .then(transactions => {
+                res.send(transactions)
+                // res.render('./admin/transactionlist', { message, isLogin, transactions })
             })
             .catch(err => {
                 res.send(err)
             })
-
-        // res.render('./admin/transactionlist', { message, isLogin })
     }
 
     static courierList(req, res){
         let message = req.flash('msg') || ""
         let isLogin = req.session.login || ""
-
-        console.log(message)
 
         Courier
             .findAll()
@@ -180,10 +222,73 @@ class AdminController {
             .create(newCourier)
             .then(courier => {
                 req.flash('msg', `Successfully added courier ${courier.name}`)
-                res.redirect('./admin/courier/list')
+                res.redirect('/admin/courier/list')
             })
             .catch(err => {
                 
+                let generateError = []
+                let obj = {}
+                err.errors.forEach(el => {
+                    obj[el.path] = el.message
+                })
+                generateError.push(obj)
+                
+                req.flash('msg', generateError)
+                res.redirect('back')
+            })
+    }
+
+    static deleteCourier(req, res){
+        Courier
+            .destroy({
+                where: {
+                    id: req.params.id
+                }
+            })
+            .then(deleted => {
+                req.flash('success', 'Delete Successful')
+                res.redirect('back')
+            })
+            .catch(err =>{
+                res.send(err)
+            })
+    }
+
+    static editCourierForm(req, res){
+        let message = req.flash('msg') || ""
+        let isLogin = req.session.login || ""
+
+        console.log(message)
+
+        Courier
+            .findByPk(req.params.id)
+            .then(found => {
+                res.render('./admin/editcourier', { message, isLogin, courier:found})
+            })
+            .catch(err => {
+                res.send(err)
+            })
+    }
+
+    static proceedEditCourier(req, res){
+        let editCourier = {
+            name: req.body.name,
+            password: req.body.password,
+            email: req.body.email,
+            phone_number: req.body.phone_number
+        }
+
+        Courier
+            .update(editCourier, {
+                where: {
+                    id: req.params.id
+                }
+            })
+            .then(courier => {
+                req.flash('msg', `Successfully edited courier ${courier.name}`)
+                res.redirect('/admin/courier/list')
+            })
+            .catch(err => {
                 let generateError = []
                 let obj = {}
                 err.errors.forEach(el => {

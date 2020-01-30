@@ -1,0 +1,30 @@
+<%- include('./partials/header') %>
+<body>
+    <%- include('./partials/navbar', { page: "courier" }) %>
+    <div class="container mt-4" style="width: 600px;">
+        <form action="" method="POST" style="border: 1px solid black; padding: 25px;">
+            <h3 class="text-center">Edit Courier</h2>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Name</label>
+                <input type="text" class="form-control" name="name" value="<%= courier.name %>" placeholder="Input name...">
+                <small class="form-text" style="font-weight: bold;color: red;"><%= message[0] ? message[0].name : "" %></small>
+            </div>
+            <div class="form-group">
+                <label for="example">Password</label>
+                <input type="password" class="form-control" name="password" value="<%= courier.password %>" placeholder="Input password...">
+                <small class="form-text" style="font-weight: bold;color: red;"><%= message[0] ? message[0].password : "" %></small>
+            </div>
+            <div class="form-group">
+                <label for="example">Email</label>
+                <input type="email" class="form-control" value="<%= courier.email %>" name="email" placeholder="Input email...">
+                <small class="form-text" style="font-weight: bold;color: red;"><%= message[0] ? message[0].email : "" %></small>
+            </div>
+            <div class="form-group">
+                <label for="example">Phone Number</label>
+                <input type="text" class="form-control" value="<%= courier.phone_number %>" name="phone_number" placeholder="Input phone number...">
+                <small class="form-text" style="font-weight: bold;color: red;"><%= message[0] ? message[0].phone_number : "" %></small>
+            </div>
+            <center><button type="submit" class="btn btn-primary">Submit</button></center>
+        </form>
+    </div>
+</body>
