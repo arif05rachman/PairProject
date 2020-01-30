@@ -1,6 +1,7 @@
 <%- include('./partials/header') %>
 <body>
     <%- include('./partials/navbar', { page: "transaction" }) %>
+    <div>
         <div class="text-center mt-4">
             <h2>Transactions List</h2>
         </div>
@@ -9,6 +10,7 @@
             <tr>
                 <th scope="col">Customer Name</th>
                 <th scope="col">Package Name</th>
+                <th scope="col">Weight</th>
                 <th scope="col">Total Price</th>
                 <th scope="col">Date Order</th>
                 <th scope="col">Date Est. Complete</th>
@@ -28,6 +30,7 @@
                 <tr>
                     <td><%= list.name[i] %></td>
                     <td><%= list.type[i] %></td>
+                    <td><%= list.weight[i] %></td>
                     <td><%= helper.changeNumberFormat(list.totalprice[i]) %></td>
                     <td><%= helper.changeDate(list.date_order[i]) %></td>
                     <td><%= helper.changeDate(list.date_estimation[i]) %></td>

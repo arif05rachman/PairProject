@@ -2,11 +2,11 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('UserPackages', [{
-      id:1,
-      UserId : 1,
-      PackageId : 1,
-      weight: 4,
+    return queryInterface.bulkInsert('UserPackages', [
+      {
+      UserId: 1,
+      PackageId: 1,
+      weight: 5.2,
       date_order: new Date(),
       date_estimation: null,
       date_pickup: null,
@@ -20,10 +20,9 @@ module.exports = {
     }
     ,
     {
-      id: 2,
-      UserId : 2,
-      PackageId : 1,
-      weight: 5,
+      UserId: 1,
+      PackageId: 2,
+      weight: 6,
       date_order: new Date(),
       date_estimation: null,
       date_pickup: null,
@@ -36,10 +35,9 @@ module.exports = {
       updatedAt: new Date
     },
     {
-      id: 3,
-      UserId : 1,
-      PackageId : 3,
-      weight: 6,
+      UserId: 1,
+      PackageId: 3,
+      weight: 3.2,
       date_order: new Date(),
       date_estimation: null,
       date_pickup: null,
@@ -53,10 +51,9 @@ module.exports = {
     }
     ,
     {
-      id: 4,
-      UserId : 2,
-      PackageId : 4,
-      weight: 8,
+      UserId: 1,
+      PackageId: 4,
+      weight: 4,
       date_order: new Date(),
       date_estimation: null,
       date_pickup: null,
@@ -70,10 +67,9 @@ module.exports = {
     }
     ,
     {
-      id: 5,
-      UserId : 1,
-      PackageId : 3,
-      weight: 3,
+      UserId: 1,
+      PackageId: 3,
+      weight: 2,
       date_order: new Date(),
       date_estimation: null,
       date_pickup: null,
