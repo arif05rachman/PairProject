@@ -1,7 +1,7 @@
 <%- include('./partials/header') %>
 <body>
     <%- include('./partials/navbar', { page: "transaction" }) %>
-    <div class="container max-width">
+    <div>
         <div class="text-center mt-4">
             <h2>Transactions List</h2>
         </div>
@@ -10,6 +10,7 @@
             <tr>
                 <th scope="col">Customer Name</th>
                 <th scope="col">Package Name</th>
+                <th scope="col">Weight</th>
                 <th scope="col">Total Price</th>
                 <th scope="col">Date Order</th>
                 <th scope="col">Date Est. Complete</th>
@@ -24,20 +25,38 @@
             </tr>
             </thead>
             <tbody>
-                <% transactions.forEach((transaction, index) => { %>
+            <% transactions.forEach((transaction, index) => { %>
+                <% for (let i = 0; i < list.status.length; i++){ %>
+                <tr>
                     <td><%= transaction.name %></td>
-                    <td>package name</td>
-                    <td>total price </td>
-                    <td>date order </td>
-                    <td>date est. complete </td>
-                    <td>date pickup </td>
-                    <td>date finish </td>
-                    <td>date deliver </td>
-                    <td>date delivered </td>
-                    <td>courier name </td>
-                    <td>courier contact </td>
-                    <td>transaction.status </td>
-                <% }) %>
+                    <td><%= list.packageName[i] %></td> 
+                    <td><%= list.weight[i] %> Kgs</td>
+                    <td><%= helper.changeNumberFormat(list.priceTotal[i]) %></td>
+                    <td><%= list.dateOrder[i] ? helper.dateFormat(list.dateOrder[i]) : '' %></td>
+                    <td><%= list.dateEstComplete[i] ? helper.dateFormat(list.dateEstComplete[i]) : ''%></td>
+                    <td><%= list.datePickup[i] ? helper.dateFormat(list.datePickup[i]) : '' %></td>
+                    <td><%= list.dateFinish[i] ? helper.dateFormat(list.dateFinish[i]) : '' %></td>
+                    <td><%= list.dateDeliver[i] ? helper.dateFormat(list.dateDeliver[i]) : '' %></td>
+                    <td><%= list.dateDelivered[i] ? helper.dateFormat(list.dateDelivered[i]) : '' %></td>
+                    <td><%= list.courierName[i] %></td>
+                    <td><%= list.courierContact[i] %></td>
+                    <td><%= list.status[i] %></td>
+                    <td>
+                        <% if(list.status[i] == 'pending'){ %>
+                            <a href="/admin/status/<%= transaction.UserPackages[i].UserId %>/<%= transaction.UserPackages[i].PackageId %>"><button type="submit" class="btn btn-warning btn-sm">Pick up</button></a>
+                        <% } else if(list.status[i] == 'on progress'){ %>
+                            <a href="/admin/status/<%= transaction.UserPackages[i].UserId %>/<%= transaction.UserPackages[i].PackageId %>"><button type="submit" class="btn btn-warning btn-sm">Bag</button></a>
+                        <% } else if (list.status[i] == 'closing process'){ %>
+                            <a href="/admin/status/<%= transaction.UserPackages[i].UserId %>/<%= transaction.UserPackages[i].PackageId %>"><button type="submit" class="btn btn-warning btn-sm">Deliver</button></a>
+                        <% } else if (list.status[i] == 'on delivery'){ %>
+                            <a href="/admin/status/<%= transaction.UserPackages[i].UserId %>/<%= transaction.UserPackages[i].PackageId %>"><button type="submit" class="btn btn-warning btn-sm">Delivered</button></a>
+                        <% } else if (list.status[i] == 'delivered'){ %>
+                            <a href="/admin/status/<%= transaction.UserPackages[i].UserId %>/<%= transaction.UserPackages[i].PackageId %>"><button type="submit" class="btn btn-warning btn-sm">Close Order</button></a>
+                        <% } %>
+                    </td>
+                </tr>
+                <% } %>
+            <% }) %>
             </tbody>
         </table>
     </div>

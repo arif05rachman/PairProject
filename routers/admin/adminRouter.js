@@ -7,6 +7,14 @@ router.get('/', AdminControlller.home)
 router.post('/login', AdminControlller.login)
 router.get('/logout', AdminControlller.logout)
 
+router.use('/', (req, res, next) => {
+    if(req.session.login){
+        next()
+    } else {
+        res.redirect('/admin')
+    }
+})
+
 router.get('/customer/list', AdminControlller.customerList)
 router.get('/package/list', AdminControlller.packageList)
 router.get('/transaction/list', AdminControlller.transactionList)
@@ -23,5 +31,7 @@ router.post('/courier/add/', AdminControlller.proceedAddCourier)
 router.get('/courier/delete/:id', AdminControlller.deleteCourier)
 router.get('/courier/edit/:id', AdminControlller.editCourierForm)
 router.post('/courier/edit/:id', AdminControlller.proceedEditCourier)
+
+router.get('/status/:UserId/:PackageId', AdminControlller.changeStatusTransaction)
 
 module.exports = router

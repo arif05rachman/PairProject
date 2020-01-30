@@ -48,5 +48,8 @@ function searchDirection(loc){
     return res
 }
 
+function dateFormat(date){
+    return date.toLocaleDateString('en-GB')
+}
 
-module.exports = { changeNumberFormat, changeDurationFormat, changePhoneNumberFormat, storeLocation, searchDirection}
+module.exports = { changeNumberFormat, changeDurationFormat, changePhoneNumberFormat, storeLocation, searchDirection, dateFormat}
