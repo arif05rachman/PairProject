@@ -14,6 +14,9 @@ module.exports = {
       PackageId: {
         type: Sequelize.INTEGER
       },
+      weight: {
+        type: Sequelize.INTEGER
+      },
       price_total: {
         type: Sequelize.INTEGER
       },

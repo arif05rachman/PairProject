@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   UserPackage.init({
     UserId: DataTypes.INTEGER,
     PackageId: DataTypes.INTEGER,
+    weight: DataTypes.INTEGER,
     price_total: DataTypes.INTEGER,
     date_order: DataTypes.DATE,
     date_estimation: DataTypes.DATE,
