@@ -32,6 +32,7 @@ class AdminController {
         User
             .findAll()
             .then(customers => {
+                console.log(customers)
                 res.render('./admin/customerlist', { message, isLogin, customers })
             })
             .catch(err => {

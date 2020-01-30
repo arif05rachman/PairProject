@@ -16,14 +16,6 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    password: {
-      type: DataTypes.STRING,
-      validate: {
-        isAlphanumeric: {
-          msg: "Password must be either letter or number"
-        }
-      }
-    },
     phone_number: {
       type:DataTypes.STRING,
       validate: {

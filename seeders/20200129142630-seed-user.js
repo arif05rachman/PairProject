@@ -2,10 +2,18 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
+    let password = 'customer'
+    const bcrypt = require('bcrypt');
+    const saltRounds = 10;
+
+    let salt = bcrypt.genSaltSync(saltRounds);
+    let hash = bcrypt.hashSync(password, salt);
+    password = hash
+
     return queryInterface.bulkInsert('Users', [{
       name: 'customer',
-      password: 'customer',
-      phone_number: '0812345678',
+      password: password,
+      phone_number: '080808080',
       address: 'Gandaria City',
       email: 'test@test.com',
       createdAt: new Date,
@@ -14,6 +22,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-     return queryInterface.bulkDelete('User', null, {});
+     return queryInterface.bulkDelete('Users', null, {});
   }
 };
