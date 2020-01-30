@@ -65,7 +65,7 @@ class AdminController {
             })
             .catch(err => {
                 req.flash('msg', ["Username or Password incorrect"])
-                res.redirect('back')
+                res.send(err)
             })
     }
 

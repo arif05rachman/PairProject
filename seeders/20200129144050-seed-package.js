@@ -14,7 +14,7 @@ module.exports = {
       id: 2,
       type: 'Instant',
       price: 15000,
-      duration: 0.25,
+      duration: 1,
       createdAt: new Date,
       updatedAt: new Date
     },

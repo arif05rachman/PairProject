@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<%- include('./partials/head') %>
+<body>
+<!-- header -->
+	<!-- <div id="demo-1" data-zs-src='["images/4.jpg", "images/2.jpg", "images/1.jpg","images/3.jpg"]' data-zs-overlay="dots"> -->
+		<div class="demo-inner-content">
+		<!--/header-w3l-->
+		<div class="header-w3-agileits" id="home">
+			<%- include('./partials/nav')%>
+	<!--//header-w3l-->
+	<!--/banner-info-->
+	<!--/banner-info-->
+		</div>
+		   </div>
+    <!-- </div> -->
+  <!--/banner-section-->
+<!-- about -->
+<!-- services -->
+	<div class="services">
+		<div class="container">
+			<table class="table">
+				<thead>
+				  <tr>
+					<th scope="col">NO</th>
+					<th>ID</th>
+					<th>USERID</th>
+					<th>PACKAGEID</th>
+					<th>PRICE TOTAL</th> 
+					<th>DATE ORDER</th> 
+					<th>DATE ESTIMATION</th> 
+					<th>DATE PICKUP</th> 
+					<th>DATE FINISH</th> 
+					<th>DATE DELIVER</th> 
+					<th>DATE DELIVERED</th> 
+					<th>STATUS</th>
+					<th>COURIERID</th>
+					<th>CREATEDAT</th>
+					<th>UPDATEDAT</th>
+					<th>WEIGHT</th>
+				  </tr>
+				</thead>
+				<tbody>
+					<% data.forEach((data, index)=>{%>
+				  <tr>
+					<th scope="row"><%=index+1%></th>
+					<td><%=data.id%></td>
+					<td><%=data.UserId%></td>
+					<td><%=data.PackageId%></td>
+					<td><%=data.price_total%></td>
+					<td><%=data.date_order%></td>
+					<td><%=data.date_estimation%></td>
+					<td><%=data.date_pickup%></td>
+					<td><%=data.date_finish%></td>
+					<td><%=data.date_deliver%></td>
+					<td><%=data.date_delivered%></td>
+					<td><%=data.status%></td>
+					<td><%=data.CourierId%></td>
+					<td><%=data.createdAt%></td>
+					<td><%=data.updatedAt%></td>
+					<td><%=data.weight%></td>
+				  </tr>
+				<%})%>
+				</tbody>
+			  </table>
+		</div>
+	</div>
+<!-- //services -->
+	<!-- //about -->
+
+<!--footer -->
+	<%- include('partials/footer')%>
+<!--//footer-->	
+<!-- copy-right -->
+<%- include('partials/copyright')%>
+<!-- //copy-right -->
+<%- include('partials/modal') %>
+	<a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+<!-- //smooth scrolling -->
+<%- include('partials/script')%>
+</body>
+</html>
