@@ -2714,6 +2714,39 @@ a.btn1-w3-agileits:focus,a.btn2-w3-agileits:focus  {
 a.btn1-w3-agileits i ,a.btn2-w3-agileits i {
     padding-right: 5px;
 }
+/*  */
+a.btn3-w3-agileits {
+	color: #fff;
+    padding: 5px 15px;
+    font-size: 14px;
+    letter-spacing: .5px;
+    text-transform: capitalize;
+    text-decoration: none;
+    display: inline-block;
+	transition:.5s ease-in;
+	-webkit-transition:.5s ease-in;
+	-moz-transition:.5s ease-in;
+	-o-transition:.5s ease-in;
+	-ms-transition:.5s ease-in;
+	background:#bd151d;
+}
+a.btn3-w3-agileits:hover,a.btn1-w3-agileits:hover {
+	display:inline-block;
+	text-decoration: none;
+    background: #fff;
+    color: #000;
+    transition:.5s ease-in;
+	-webkit-transition:.5s ease-in;
+	-moz-transition:.5s ease-in;
+	-o-transition:.5s ease-in;
+	-ms-transition:.5s ease-in;
+}
+a.btn1-w3-agileits:focus,a.btn3-w3-agileits:focus  {
+	outline:none;
+}
+a.btn1-w3-agileits i ,a.btn3-w3-agileits i {
+    padding-right: 5px;
+}
 .login-top.sign-top {
     background: rgba(255, 255, 255, 0);
 }

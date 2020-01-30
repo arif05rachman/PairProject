@@ -15,6 +15,7 @@ app.locals.helper = require('./helpers/helper')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended:true }))
 app.set('view engine', 'ejs')
+app.locals.moment = require('moment');
 
 app.use(cookieParser('keyboard cat'))
 app.use(flash())

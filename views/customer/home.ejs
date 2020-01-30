@@ -39,7 +39,7 @@
 						<p>We have package <%= el.type %> </p>
 						<p>Finished in <%= el.duration %> days</p>
 						<p>Price : Rp. <%= el.price %>/Kg</p>
-						<a type="button" class="btn btn-primary" href="order/<%=1%>">Select</a>
+						<a type="button" class="btn btn-primary" href="order/<%=el.id%>">Select</a>
 					</div>
 					<%if(i+1 % 3 == 0){%>
 					<div class="clearfix"> </div>
